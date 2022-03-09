@@ -15,7 +15,8 @@ const todoBtn = document.getElementById('todo-btn');
 
 const showTodo = () => {
     const allTasks = JSON.parse(localStorage.getItem('todos'));
-    if (allTasks.length > 0) {
+    todoList.innerHTML = "";
+    if (allTasks?.length > 0) {
         allTasks.map(task => {
             if (task) {
                 const createNewTaskDiv = document.createElement('div');
@@ -24,8 +25,8 @@ const showTodo = () => {
                 createNewTaskDiv.innerHTML =
                     `
             <div class="flex-1">
-                <h2 class="text-xl">${task.task}</h2>
-                <p class="text-xs">${task.date}</p>
+                <h2 class="text-xl">${task?.task}</h2>
+                <p class="text-xs">${task?.date}</p>
             </div>
             
             <button class="bg-blue-500 text-white px-4 py-1 rounded-sm hover:bg-blue-600 mr-1">Done</button>
@@ -36,10 +37,9 @@ const showTodo = () => {
             }
         });
     } else {
-        console.log("HEY");
+        todoList.innerHTML = `<h2 class="text-2xl text-center">NO TASK ADDED</h2>`;
     }
 }
-
 
 
 
@@ -91,6 +91,7 @@ todoBtn.addEventListener('click', () => {
         const newTask = [...prevTodo, { task: todoInput.value, date: nowDate }];
         localStorage.setItem('todos', JSON.stringify(newTask));
         todoInput.value = "";
+        showTodo();
 
     }
 });
@@ -98,8 +99,9 @@ todoBtn.addEventListener('click', () => {
 
 const DeleteTodo = (event, index) => {
     const allTasks = JSON.parse(localStorage.getItem('todos'));
-    allTasks[index] = undefined;
+    allTasks.splice(index, 1);
     console.log(allTasks);
     todoList.removeChild(event.parentNode);
     localStorage.setItem('todos', JSON.stringify(allTasks));
+    showTodo();
 }
