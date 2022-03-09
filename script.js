@@ -9,6 +9,7 @@ const todoList = document.getElementById('todo-list');
 const headerArea = document.getElementById('header-area');
 const todoInput = document.getElementById('todo-input');
 const todoBtn = document.getElementById('todo-btn');
+const lgoOutBtn = document.getElementById('logout-btn');
 
 
 
@@ -54,6 +55,7 @@ const checkUserSetOrNot = () => {
         showUserName.innerText = "";
         todoForm.classList.add('hidden');
         todoList.classList.add('hidden');
+        lgoOutBtn.classList.add('hidden');
         headerArea.classList.remove('border-b');
     } else {
         userNameForm.classList.add('justify-center');
@@ -62,6 +64,7 @@ const checkUserSetOrNot = () => {
         showUserName.innerText = localStorage.getItem('username');
         todoForm.classList.remove('hidden');
         todoList.classList.remove('hidden');
+        lgoOutBtn.classList.remove('hidden');
         headerArea.classList.add('border-b');
         showTodo();
     }
@@ -119,3 +122,13 @@ const UndoneTodo = (event, index) => {
     localStorage.setItem('todos', JSON.stringify(allTasks));
     showTodo();
 }
+
+lgoOutBtn.addEventListener('click', () => {
+    const confirmLogout = confirm("By loging out, you're all details we be deleted, even tasks.");
+    console.log(confirmLogout);
+    if (confirmLogout === true) {
+        localStorage.removeItem("username");
+        localStorage.removeItem("todos");
+        checkUserSetOrNot();
+    }
+})
