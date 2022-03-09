@@ -21,12 +21,12 @@ const showTodo = () => {
         allTasks.map(task => {
             if (task) {
                 const createNewTaskDiv = document.createElement('div');
-                createNewTaskDiv.classList.add("border-b", "w-full", "py-2", "flex", "items-center", "px-5", `${task?.done ? 'bg-gray-700' : 'bg-white'}`);
+                createNewTaskDiv.classList.add("border-b", "w-full", "py-2", "flex", "items-center", "px-5", `${task?.done ? 'bg-gray-900' : 'bg-white'}`);
 
                 createNewTaskDiv.innerHTML =
                     `
             <div class="flex-1">
-                <h2 class="text-xl ${task?.done ? 'line-through' : ''}"> 
+                <h2 class="${task?.done ? 'text-sm text-gray-500' : 'text-xl'}"> 
                 ${allTasks.indexOf(task) + 1} . ${task?.task}</h2>
                 <p class="text-xs">${task?.date}</p>
             </div>
@@ -52,7 +52,7 @@ const checkUserSetOrNot = () => {
         userNameForm.classList.remove('justify-center');
         userNameForm.classList.remove('hidden');
         userListsArea.classList.remove('flex-1');
-        showUserName.innerText = "";
+        showUserName.innerHTML = "";
         todoForm.classList.add('hidden');
         todoList.classList.add('hidden');
         lgoOutBtn.classList.add('hidden');
@@ -61,7 +61,7 @@ const checkUserSetOrNot = () => {
         userNameForm.classList.add('justify-center');
         userNameForm.classList.add('hidden');
         userListsArea.classList.add('flex-1');
-        showUserName.innerText = localStorage.getItem('username');
+        showUserName.innerHTML = `Hi, <strong>${localStorage.getItem('username')}`;
         todoForm.classList.remove('hidden');
         todoList.classList.remove('hidden');
         lgoOutBtn.classList.remove('hidden');
