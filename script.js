@@ -17,11 +17,12 @@ const showTodo = () => {
     const allTasks = JSON.parse(localStorage.getItem('todos'));
     if (allTasks.length > 0) {
         allTasks.map(task => {
-            const createNewTaskDiv = document.createElement('div');
-            createNewTaskDiv.classList.add("border-b", "w-full", "py-2", "flex", "items-center", "px-5");
+            if (task) {
+                const createNewTaskDiv = document.createElement('div');
+                createNewTaskDiv.classList.add("border-b", "w-full", "py-2", "flex", "items-center", "px-5");
 
-            createNewTaskDiv.innerHTML =
-                `
+                createNewTaskDiv.innerHTML =
+                    `
             <div class="flex-1">
                 <h2 class="text-xl">${task.task}</h2>
                 <p class="text-xs">${task.date}</p>
@@ -31,7 +32,8 @@ const showTodo = () => {
             <button class="bg-blue-500 text-white px-4 py-1 rounded-sm hover:bg-blue-600" onClick="DeleteTodo(this, ${allTasks.indexOf(task)})">Delete</button>
             `;
 
-            todoList.appendChild(createNewTaskDiv);
+                todoList.appendChild(createNewTaskDiv);
+            }
         });
     } else {
         console.log("HEY");
