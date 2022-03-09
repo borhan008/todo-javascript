@@ -20,16 +20,17 @@ const showTodo = () => {
         allTasks.map(task => {
             if (task) {
                 const createNewTaskDiv = document.createElement('div');
-                createNewTaskDiv.classList.add("border-b", "w-full", "py-2", "flex", "items-center", "px-5");
+                createNewTaskDiv.classList.add("border-b", "w-full", "py-2", "flex", "items-center", "px-5", `${task?.done ? 'bg-gray-700' : 'bg-white'}`);
 
                 createNewTaskDiv.innerHTML =
                     `
             <div class="flex-1">
-                <h2 class="text-xl">${task?.task}</h2>
+                <h2 class="text-xl ${task?.done ? 'line-through' : ''}"> 
+                ${allTasks.indexOf(task) + 1} . ${task?.task}</h2>
                 <p class="text-xs">${task?.date}</p>
             </div>
             
-            <button class="bg-blue-500 text-white px-4 py-1 rounded-sm hover:bg-blue-600 mr-1">Done</button>
+            <button class="bg-blue-500 text-white px-4 py-1 rounded-sm hover:bg-blue-600 mr-1" onclick="${task?.done ? `UndoneTodo(this, ${allTasks.indexOf(task)})` : `doneTodo(this, ${allTasks.indexOf(task)})`}">${task?.done ? 'Undone' : 'Done'}</button>
             <button class="bg-blue-500 text-white px-4 py-1 rounded-sm hover:bg-blue-600" onClick="DeleteTodo(this, ${allTasks.indexOf(task)})">Delete</button>
             `;
 
@@ -102,6 +103,19 @@ const DeleteTodo = (event, index) => {
     allTasks.splice(index, 1);
     console.log(allTasks);
     todoList.removeChild(event.parentNode);
+    localStorage.setItem('todos', JSON.stringify(allTasks));
+    showTodo();
+}
+
+const doneTodo = (event, index) => {
+    const allTasks = JSON.parse(localStorage.getItem('todos'));
+    allTasks[index].done = true;
+    localStorage.setItem('todos', JSON.stringify(allTasks));
+    showTodo();
+}
+const UndoneTodo = (event, index) => {
+    const allTasks = JSON.parse(localStorage.getItem('todos'));
+    allTasks[index].done = false;
     localStorage.setItem('todos', JSON.stringify(allTasks));
     showTodo();
 }
