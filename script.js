@@ -21,12 +21,12 @@ const showTodo = () => {
         allTasks.map(task => {
             if (task) {
                 const createNewTaskDiv = document.createElement('div');
-                createNewTaskDiv.classList.add("border-b", "w-full", "py-2", "flex", "items-center", "px-5", `${task?.done ? 'bg-gray-900' : 'bg-white'}`);
+                createNewTaskDiv.classList.add("border-b", "w-full", "py-2", "flex", "items-center", "px-5");
 
                 createNewTaskDiv.innerHTML =
                     `
             <div class="flex-1">
-                <h2 class="${task?.done ? 'text-sm text-gray-500' : 'text-xl'}"> 
+                <h2 class="text-xl ${task?.done ? 'line-through' : ' '}"> 
                 ${allTasks.indexOf(task) + 1} . ${task?.task}</h2>
                 <p class="text-xs">${task?.date}</p>
             </div>
